@@ -1,11 +1,8 @@
-## Video demostração: 
-https://www.youtube.com/watch?v=vr1br-s-Adk&ab_channel=VidaExtra
-
-myburgercontrol-infra
+myv-ideo-infra
 ---
 
 O código fornecido é destinado a configuração do ambiente de
-infraestrutura Kubernetes (k8s) para uma aplicação "My Burger"
+infraestrutura Kubernetes (k8s) para uma aplicação "My Video"
 para o projeto de POS SOAT da FIAP.
 
 ## Pré-requisitos

@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myburger-payment
+  name: myvideo-manager
 spec:
   selector:
     matchLabels:
-      app: myburger-payment
+      app: myvideo-manager
   replicas: 1
   template:
     metadata:
       labels:
-        app: myburger-payment
+        app: myvideo-manager
     spec:
       containers:
-        - name: myburger-payment
-          image: fiapmyburguer/myburger-payment-service:latest
+        - name: myvideo-manager
+          image: fiapmyburguer/myvideo-manager-service:latest
           imagePullPolicy: Always
           resources:
             limits:
@@ -27,9 +27,9 @@ spec:
             - containerPort: 8080
           envFrom:
             - configMapRef:
-                name: myburger-config
+                name: myvideo-config
             - secretRef:
-                name: myburger-secrets
+                name: myvideo-secrets
           livenessProbe:
             httpGet:
               port: 8080
