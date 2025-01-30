@@ -1,10 +1,10 @@
 resource "digitalocean_database_db" "my_burger_database" {
-  cluster_id = digitalocean_database_cluster.myburger_database_cluster.id
+  cluster_id = digitalocean_database_cluster.myvideo_database_cluster.id
   name       = "my_burger"
 }
 
-resource "digitalocean_database_cluster" "myburger_database_cluster" {
-  name       = "myburger-db-server"
+resource "digitalocean_database_cluster" "myvideo_database_cluster" {
+  name       = "myvideo-db-server"
   engine     = "pg"
   version    = "16"
   size       = "db-s-1vcpu-1gb"
@@ -19,13 +19,4 @@ resource "time_sleep" "db_ready" {
   provisioner "local-exec" {
     command = "echo \"Waiting for database to be ready...\""
   }
-}
-
-resource "digitalocean_database_cluster" "myburger_mongodb_database_cluster" {
-  name       = "my-burger"
-  engine     = "mongodb"
-  version    = "7"
-  size       = "db-s-1vcpu-1gb"
-  region     = "nyc1"
-  node_count = 1
 }

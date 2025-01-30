@@ -1,11 +1,8 @@
-## Video demostração: 
-https://www.youtube.com/watch?v=vr1br-s-Adk&ab_channel=VidaExtra
-
-myburgercontrol-infra
+my-video-infra
 ---
 
 O código fornecido é destinado a configuração do ambiente de
-infraestrutura Kubernetes (k8s) para uma aplicação "My Burger"
+infraestrutura Kubernetes (k8s) para uma aplicação "My Video"
 para o projeto de POS SOAT da FIAP.
 
 ## Pré-requisitos
@@ -47,11 +44,11 @@ O reporitório contém os seguintes arquivos e pastas:
 
 Ficar atento para não executar o script `script\k8s-cluster\init-db-on-k8s-cluster.sh` que cria um servidor PostgreSQL no cluster Kubernetes ao invés de usar o banco de dados fornecido pela Digital Ocean.
 
-## Instalação e Configuração do Ambiente do My Burger
+## Instalação e Configuração do Ambiente do My Video
 
-Para subir o ambiente e a aplicação My Burger, siga os passos abaixo:
+Para subir o ambiente e a aplicação My Video, siga os passos abaixo:
 > sh -v ./script/k8s-cluster/create-cluster.sh
 > 
 > sh -v ./script/k8s-cluster/init-db-on-digital-ocean.sh
 >
-> sh -v ./script/k8s-cluster/start-myburger.sh
+> sh -v ./script/k8s-cluster/start-video.sh

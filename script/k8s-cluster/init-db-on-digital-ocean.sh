@@ -5,10 +5,10 @@ doctl databases create \
     --version 16 \
     --size db-s-1vcpu-1gb \
     --region nyc3 \
-    --tag myburger \
+    --tag myvideo \
     --wait \
     -o json \
-    myburger-db-server
+    myvideo-db-server
 
 DBID=`doctl db list -o json | jq ".[0].id"`
 
