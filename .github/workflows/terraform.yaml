@@ -36,11 +36,9 @@ jobs:
         working-directory: ./terraform/
 
       - name: Apply Terraform
-        env:
-          TF_VAR_ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir ~/.ssh
-          echo "$TF_VAR_ssh_private_key" > ~/.ssh/id_rsa
+          echo "secrets.SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           terraform apply -auto-approve -input=false
         working-directory: ./terraform/
