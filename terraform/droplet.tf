@@ -18,6 +18,7 @@ resource "null_resource" "install_nats" {
       host        = digitalocean_droplet.my_video_nats_server.ipv4_address
       user        = "root"
       private_key = file(var.ssh_private_key)
+      timeout     = "30s"
     }
   }
 }
