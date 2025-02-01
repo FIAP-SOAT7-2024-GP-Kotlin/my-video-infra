@@ -5,5 +5,5 @@ variable "do_token" {
 variable "ssh_private_key" {
   description = "Conteúdo da chave privada SSH"
   type        = string
-  # sensitive   = true
+  sensitive   = true
 }
