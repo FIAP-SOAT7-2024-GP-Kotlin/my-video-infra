@@ -14,7 +14,7 @@ for DB_ID in $DB_IDS; do
   doctl db delete $DB_ID --force
 done
 
-echo "Deleting Dropletes"
+echo "Deleting Droplets"
 DROPLET_IDS=$(doctl compute droplet list --format ID --no-header)
 for DROPLET_ID in $DROPLET_IDS; do
   echo "Deleting droplet with ID: $DROPLET_ID"
