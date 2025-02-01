@@ -12,7 +12,7 @@ resource "null_resource" "install_nats" {
     type        = "ssh"
     host        = digitalocean_droplet.my_video_nats_server.ipv4_address
     user        = "root"
-    private_key = var.ssh_private_key
+    private_key = file(var.ssh_private_key)
   }
 
   provisioner "remote-exec" {
