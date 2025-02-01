@@ -15,7 +15,7 @@ resource "digitalocean_droplet" "my_video_nats_server" {
       type        = "ssh"
       host        = self.ipv4_address
       user        = "root"
-      private_key = file(var.ssh_private_key)
+      private_key = var.ssh_private_key
     }
   }
 }
