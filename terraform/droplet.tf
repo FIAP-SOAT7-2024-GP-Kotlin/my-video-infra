@@ -8,16 +8,16 @@ resource "digitalocean_droplet" "my_video_nats_server" {
 }
 
 resource "null_resource" "install_nats" {
-  connection {
-    type        = "ssh"
-    host        = digitalocean_droplet.my_video_nats_server.ipv4_address
-    user        = "root"
-    private_key = file(var.ssh_private_key)
-  }
-
   provisioner "remote-exec" {
     inline = [
       "docker run -d --name nats-server -p 4222:4222 -p 8222:8222 nats:latest"
     ]
+
+    connection {
+      type        = "ssh"
+      host        = digitalocean_droplet.my_video_nats_server.ipv4_address
+      user        = "root"
+      private_key = var.ssh_private_key
+    }
   }
 }
