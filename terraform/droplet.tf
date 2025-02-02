@@ -9,6 +9,8 @@ resource "digitalocean_droplet" "my_video_nats_server" {
   ]
   provisioner "remote-exec" {
     inline = [
+      "echo 'Waiting for SSH to be ready...'",
+      "sleep 30",  # Aguarda 30 segundos antes de tentar conectar
       "docker run -d --name nats-server -p 4222:4222 -p 8222:8222 nats:latest"
     ]
 
