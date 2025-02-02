@@ -2,6 +2,10 @@ variable "do_token" {
   type = string
 }
 
+variable "do_ssh_key_name" {
+  type = string
+}
+
 variable "ssh_private_key" {
-  default = "~/.ssh/id_rsa"
+  type = string
 }
