@@ -35,11 +35,22 @@ jobs:
         run: terraform fmt -check
         working-directory: ./terraform/
 
+      - name: Debug SSH Private Key
+        run: |
+          if [ -z "$TF_VAR_ssh_private_key" ]; then
+            echo "A variável TF_VAR_ssh_private_key está vazia!"
+          else
+            echo "A variável TF_VAR_ssh_private_key foi definida corretamente."
+            echo "Verificando o início da chave:"
+            echo "$TF_VAR_ssh_private_key"
+          fi
+        env:
+          TF_VAR_ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Apply Terraform
         env:
           TF_VAR_ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          echo ${{ secrets.SSH_PRIVATE_KEY }}
           terraform apply -auto-approve -input=false
         working-directory: ./terraform/
 
