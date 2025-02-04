@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: myvideo-manager
-          image: hello-world:latest
+          image: fiapmyburguer/myburgercontrol-clean-arch:latest
           imagePullPolicy: Always
           resources:
             limits:
