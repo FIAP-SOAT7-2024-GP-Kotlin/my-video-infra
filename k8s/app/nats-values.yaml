@@ -64,3 +64,48 @@ jetstream:
         maxRequestExpires: 10s
         deliverSubject: "workers"
         deliverGroup: "workers"
+    PROCESSING:
+      WORKERS:
+        filter: "video.processing"
+        deliverPolicy: all
+        ackPolicy: explicit
+        ackWait: 30s
+        maxDeliver: 5
+        replayPolicy: instant
+        sampleFreq: "100%"
+        maxAckPending: 1000
+        maxWaiting: 100
+        maxRequestBatch: 10
+        maxRequestExpires: 10s
+        deliverSubject: "workers"
+        deliverGroup: "workers"
+    COMPLETED:
+      WORKERS:
+        filter: "video.completed"
+        deliverPolicy: all
+        ackPolicy: explicit
+        ackWait: 30s
+        maxDeliver: 5
+        replayPolicy: instant
+        sampleFreq: "100%"
+        maxAckPending: 1000
+        maxWaiting: 100
+        maxRequestBatch: 10
+        maxRequestExpires: 10s
+        deliverSubject: "workers"
+        deliverGroup: "workers"
+    ERROR:
+      WORKERS:
+        filter: "video.error"
+        deliverPolicy: all
+        ackPolicy: explicit
+        ackWait: 30s
+        maxDeliver: 5
+        replayPolicy: instant
+        sampleFreq: "100%"
+        maxAckPending: 1000
+        maxWaiting: 100
+        maxRequestBatch: 10
+        maxRequestExpires: 10s
+        deliverSubject: "workers"
+        deliverGroup: "workers"
