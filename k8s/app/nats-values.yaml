@@ -1,0 +1,66 @@
+jetstream:
+  enabled: true
+  fileStorage:
+    enabled: true
+    size: 10Gi
+
+  # Configuração de Streams
+  streams:
+    PENDING:
+      subjects: ["video.pending"]
+      storage: file
+      retention: limits
+      maxMsgs: -1
+      maxBytes: -1
+      maxAge: 1d
+      maxMsgSize: -1
+      discard: old
+      replicas: 1
+    PROCESSING:
+      subjects: [ "video.processing" ]
+      storage: file
+      retention: limits
+      maxMsgs: -1
+      maxBytes: -1
+      maxAge: 1d
+      maxMsgSize: -1
+      discard: old
+      replicas: 1
+    COMPLETED:
+      subjects: [ "video.completed" ]
+      storage: file
+      retention: limits
+      maxMsgs: -1
+      maxBytes: -1
+      maxAge: 1d
+      maxMsgSize: -1
+      discard: old
+      replicas: 1
+    ERROR:
+      subjects: [ "video.error" ]
+      storage: file
+      retention: limits
+      maxMsgs: -1
+      maxBytes: -1
+      maxAge: 1d
+      maxMsgSize: -1
+      discard: old
+      replicas: 1
+
+  # Configuração de Consumers
+  consumers:
+    PENDING:
+      WORKERS:
+        filter: "video.pending"
+        deliverPolicy: all
+        ackPolicy: explicit
+        ackWait: 30s
+        maxDeliver: 5
+        replayPolicy: instant
+        sampleFreq: "100%"
+        maxAckPending: 1000
+        maxWaiting: 100
+        maxRequestBatch: 10
+        maxRequestExpires: 10s
+        deliverSubject: "workers"
+        deliverGroup: "workers"

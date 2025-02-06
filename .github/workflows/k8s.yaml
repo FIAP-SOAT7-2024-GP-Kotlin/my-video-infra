@@ -22,6 +22,7 @@ jobs:
 
       - name: Get db user and host
         run: |
+          set -e
           PG_DB_ID=$(doctl db list | grep pg | awk '{print $1}')
           PG_DB_PASS=$(doctl databases user get $PG_DB_ID $DB_USER --format Password --no-header)
           PG_DB_HOST=$(doctl databases connection $PG_DB_ID --format Host --no-header)
@@ -42,7 +43,8 @@ jobs:
 
       - name: Install NATS using Helm
         run: |
-          helm install my-nats nats/nats -f nats-values.yaml
+          set -e 
+          helm upgrade --install my-nats nats/nats -f k8s/app/nats-values.yaml
 
       - name: Kube Apply
         env:
@@ -60,21 +62,6 @@ jobs:
           kubectl apply -f k8s/app/myvideo-manager-deployment.yaml --wait=true
           kubectl apply -f k8s/app/myvideo-hpa.yaml
           kubectl apply -f k8s/app/myvideo-manager-svc.yaml --wait=true
-
-      - name: Wait for NodePort
-        run: |
-          echo "Waiting for Service NodePort to start"
-          required_ips=2  # Número de IPs necessários
-          for i in {1..30}; do
-            K8S_LB_IPS=($(kubectl get svc -o=jsonpath='{.items[?(@.spec.type=="NodePort")].status.nodePort.ingress[*].ip}'))
-            if [ ${#K8S_LB_IPS[@]} -ge $required_ips ]; then
-              echo "NodePort started with IPs: ${K8S_LB_IPS[@]}"
-              exit 0
-            fi
-
-            sleep 20
-          done
-          echo "NodePort failed to start"
 
       - name: Updatekubeconfig
         run: |
