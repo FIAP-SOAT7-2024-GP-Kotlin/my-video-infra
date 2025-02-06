@@ -6,7 +6,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: myvideo
+    name: myvideo-manager
   minReplicas: 1
   maxReplicas: 4
   metrics:
