@@ -13,6 +13,7 @@ data:
     -XX:ActiveProcessorCount=1600
     -XX:+CrashOnOutOfMemoryError
     -Xlog:gc
-  DB_URL: "postgresql://#PG_DB_HOST#:#PG_DB_PORT#/my_video"
+  DB_URL: "r2dbc:postgresql://#PG_DB_HOST#:#PG_DB_PORT#/my_video"
   LOG_LEVEL: "INFO"
   NATS_SERVERS: "nats://nats.nats:4222"
+  FLYWAY_URL: "jdbc:postgresql://#PG_DB_HOST#:#PG_DB_PORT#/my_video"

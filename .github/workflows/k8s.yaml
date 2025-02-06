@@ -52,8 +52,7 @@ jobs:
           PG_DB_PORT: ${{ env.PG_DB_PORT }}
           PG_DB_PASS: ${{ env.PG_DB_PASS }}
         run: |
-          UPDATED_MONGO_DB_URI=$(echo "${UPDATED_MONGO_DB_URI}" | sed 's/[&/\]/\\&/g')
-          sed -i "s|#PG_DB_HOST#|${PG_DB_HOST}|; s|#PG_DB_PORT#|${PG_DB_PORT}|" k8s/app/myvideo-configmap.yaml
+          sed -i "s|#PG_DB_HOST#|${PG_DB_HOST}|g; s|#PG_DB_PORT#|${PG_DB_PORT}|g" k8s/app/myvideo-configmap.yaml
 
           sed -i 's/#DB_PASS#/'"$PG_DB_PASS"'/g' k8s/app/myvideo-secret.yaml
 
@@ -63,13 +62,3 @@ jobs:
           kubectl apply -f k8s/app/myvideo-hpa.yaml
           kubectl apply -f k8s/app/myvideo-manager-svc.yaml --wait=true
 
-      - name: Updatekubeconfig
-        run: |
-          K8S_CLUSTER_NAME=`doctl kubernetes cluster list --no-header --format Name`
-          doctl kubernetes cluster kubeconfig save $K8S_CLUSTER_NAME
-          MANAGER_SERVICE=$(kubectl get svc myvideo-manager -o jsonpath='{.status.nodePort.ingress[0].ip}')
-
-          sed -i "s|#MANAGER_SERVICE#|${MANAGER_SERVICE}|g" k8s/app/myvideo-configmap.yaml
-
-          kubectl apply -f k8s/app/myvideo-configmap.yaml
-          kubectl rollout restart deployment myvideo-manager
