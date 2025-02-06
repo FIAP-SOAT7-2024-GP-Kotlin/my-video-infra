@@ -44,7 +44,7 @@ jobs:
       - name: Install NATS using Helm
         run: |
           set -e 
-          helm upgrade --install my-nats nats/nats -f k8s/app/nats-values.yaml
+          helm upgrade --install nats nats/nats -f k8s/app/nats-values.yaml
 
       - name: Kube Apply
         env:
