@@ -10,7 +10,7 @@ jobs:
   deploy-k8s:
     runs-on: ubuntu-latest
     env:
-      DATABASE_USER: doadmin
+      DB_USER: doadmin
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
       - name: Get db user and host
         run: |
           PG_DB_ID=$(doctl db list | grep pg | awk '{print $1}')
-          PG_DB_PASS=$(doctl databases user get $PG_DB_ID $DATABASE_USER --format Password --no-header)
+          PG_DB_PASS=$(doctl databases user get $PG_DB_ID $DB_USER --format Password --no-header)
           PG_DB_HOST=$(doctl databases connection $PG_DB_ID --format Host --no-header)
           PG_DB_PORT=$(doctl databases connection $PG_DB_ID --format Port --no-header)
           echo "PG_DB_PORT"=$PG_DB_PORT >> $GITHUB_ENV
@@ -35,6 +35,15 @@ jobs:
           K8S_CLUSTER_NAME=`doctl kubernetes cluster list --no-header --format Name`
           doctl kubernetes cluster kubeconfig save $K8S_CLUSTER_NAME
 
+      - name: Add NATS Helm repository
+        run: |
+          helm repo add nats https://nats-io.github.io/k8s/helm/charts/
+          helm repo update
+
+      - name: Install NATS using Helm
+        run: |
+          helm install my-nats nats/nats -f nats-values.yaml
+
       - name: Kube Apply
         env:
           PG_DB_HOST: ${{ env.PG_DB_HOST }}
@@ -44,7 +53,7 @@ jobs:
           UPDATED_MONGO_DB_URI=$(echo "${UPDATED_MONGO_DB_URI}" | sed 's/[&/\]/\\&/g')
           sed -i "s|#PG_DB_HOST#|${PG_DB_HOST}|; s|#PG_DB_PORT#|${PG_DB_PORT}|" k8s/app/myvideo-configmap.yaml
 
-          sed -i 's/#PG_DATABASE_PASSWORD#/'"$PG_DB_PASS"'/g' k8s/app/myvideo-secret.yaml
+          sed -i 's/#DB_PASS#/'"$PG_DB_PASS"'/g' k8s/app/myvideo-secret.yaml
 
           kubectl apply -f k8s/app/myvideo-secret.yaml
           kubectl apply -f k8s/app/myvideo-configmap.yaml

@@ -13,5 +13,6 @@ data:
     -XX:ActiveProcessorCount=1600
     -XX:+CrashOnOutOfMemoryError
     -Xlog:gc
-  DATABASE_URL: "postgresql://#PG_DB_HOST#:#PG_DB_PORT#/my_video"
+  DB_URL: "postgresql://#PG_DB_HOST#:#PG_DB_PORT#/my_video"
   LOG_LEVEL: "INFO"
+  NATS_SERVERS: "nats://nats.nats:4222"
