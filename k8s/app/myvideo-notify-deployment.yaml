@@ -1,0 +1,46 @@
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: myvideo-notify
+#spec:
+#  selector:
+#    matchLabels:
+#      app: myvideo-notify
+#  replicas: 1
+#  template:
+#    metadata:
+#      labels:
+#        app: myvideo-notify
+#    spec:
+#      containers:
+#        - name: myvideo-notify
+#          image: fiapmyburguer/my-video-notify:latest
+#          imagePullPolicy: Always
+#          resources:
+#            limits:
+#              memory: "800Mi"
+#              cpu: "800m"
+#            requests:
+#              memory: "512Mi"
+#              cpu: "600m"
+#          ports:
+#            - containerPort: 8080
+#          envFrom:
+#            - configMapRef:
+#                name: myvideo-config
+#            - secretRef:
+#                name: myvideo-secrets
+#          livenessProbe:
+#            httpGet:
+#              port: 8080
+#              path: /api/v1/actuator/health/liveness
+#            initialDelaySeconds: 90
+#            periodSeconds: 10
+#            failureThreshold: 5
+#          readinessProbe:
+#            httpGet:
+#              port: 8080
+#              path: /api/v1/actuator/health/readiness
+#            initialDelaySeconds: 90
+#            periodSeconds: 10
+#            failureThreshold: 5
