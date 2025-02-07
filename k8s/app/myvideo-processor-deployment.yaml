@@ -1,0 +1,46 @@
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: myvideo-processor
+#spec:
+#  selector:
+#    matchLabels:
+#      app: myvideo-processor
+#  replicas: 1
+#  template:
+#    metadata:
+#      labels:
+#        app: myvideo-processor
+#    spec:
+#      containers:
+#        - name: myvideo-processor
+#          image: fiapmyburguer/my-video-processor:latest
+#          imagePullPolicy: Always
+#          resources:
+#            limits:
+#              memory: "800Mi"
+#              cpu: "800m"
+#            requests:
+#              memory: "512Mi"
+#              cpu: "600m"
+#          ports:
+#            - containerPort: 8080
+#          envFrom:
+#            - configMapRef:
+#                name: myvideo-config
+#            - secretRef:
+#                name: myvideo-secrets
+#          livenessProbe:
+#            httpGet:
+#              port: 8080
+#              path: /api/v1/actuator/health/liveness
+#            initialDelaySeconds: 90
+#            periodSeconds: 10
+#            failureThreshold: 5
+#          readinessProbe:
+#            httpGet:
+#              port: 8080
+#              path: /api/v1/actuator/health/readiness
+#            initialDelaySeconds: 90
+#            periodSeconds: 10
+#            failureThreshold: 5
