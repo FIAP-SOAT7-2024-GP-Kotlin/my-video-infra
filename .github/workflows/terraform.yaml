@@ -39,10 +39,6 @@ jobs:
         run: terraform apply -auto-approve -input=false
         working-directory: ./terraform/
 
-      - name: Execute SQL script
-        run: psql -f my_video_db_creation.sql
-        working-directory: ./script/db/
-
       - name: Update authentication function
         run: |
           echo "Triggering Authentications serverless function update"
