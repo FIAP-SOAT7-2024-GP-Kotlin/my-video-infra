@@ -7,9 +7,11 @@ spec:
   selector:
     app: myvideo-management
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
       nodePort: 30002
-    - port: 8081
+    - name: actuator
+      port: 8081
       targetPort: 8081
       nodePort: 30003
