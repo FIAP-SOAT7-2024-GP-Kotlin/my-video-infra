@@ -1,7 +1,7 @@
 resource "digitalocean_kubernetes_cluster" "my_video_kubernetes_cluster" {
   name     = "my-video-k8s"
   region   = "nyc1"
-  version  = "1.31.1-do.5"
+  version  = "1.32.1-do.0"
   vpc_uuid = data.digitalocean_vpc.vpc.id
 
   node_pool {
