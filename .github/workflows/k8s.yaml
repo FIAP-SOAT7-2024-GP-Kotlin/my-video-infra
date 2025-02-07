@@ -54,7 +54,7 @@ jobs:
         run: |
           sed -i "s|#PG_DB_HOST#|${PG_DB_HOST}|g; s|#PG_DB_PORT#|${PG_DB_PORT}|g" k8s/app/myvideo-configmap.yaml
 
-          sed -i 's/#DB_PASS#/'"$PG_DB_PASS"'/g' k8s/app/myvideo-secret.yaml
+          sed -i 's/#PG_DB_PASS#/'"$PG_DB_PASS"'/g' k8s/app/myvideo-secret.yaml
 
           kubectl apply -f k8s/app/myvideo-secret.yaml
           kubectl apply -f k8s/app/myvideo-configmap.yaml
