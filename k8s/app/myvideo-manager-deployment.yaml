@@ -33,14 +33,14 @@ spec:
           livenessProbe:
             httpGet:
               port: 8081
-              path: /api/v1/actuator/health/liveness
+              path: /actuator/health/liveness
             initialDelaySeconds: 90
             periodSeconds: 10
             failureThreshold: 5
           readinessProbe:
             httpGet:
               port: 8081
-              path: /api/v1/actuator/health/readiness
+              path: /actuator/health/readiness
             initialDelaySeconds: 90
             periodSeconds: 10
             failureThreshold: 5
